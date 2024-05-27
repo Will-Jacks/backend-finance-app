@@ -25,6 +25,11 @@ public class BillsController {
         return billsService.getBills();
     }
 
+    @GetMapping("/{userId}")
+    public List<Bills> getBillsByUserId(@PathVariable Long userId) {
+        return billsService.getBillsByUserId(userId);
+    }
+
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/save/{userId}")
     public List<Bills> saveBill(@PathVariable Long userId, @RequestBody Bills bill){
