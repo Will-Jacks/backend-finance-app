@@ -2,7 +2,6 @@ package com.app.finance.services;
 
 import com.app.finance.entities.Bills;
 import com.app.finance.repositories.BillsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
