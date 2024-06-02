@@ -41,7 +41,7 @@ public class UserService {
         Optional<Users> existingUser = userRepository.findUserByLogin(user.getLogin());
         if (existingUser.isPresent()) {
             if (existingUser.get().getPassword().equals(user.getPassword())) {
-                return ResponseEntity.ok("Usuário está registrado e autenticado");
+                return ResponseEntity.ok(existingUser.get().getId().toString());
             } else {
                 return ResponseEntity.status(401).body("Senha incorreta");
             }

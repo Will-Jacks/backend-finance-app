@@ -19,7 +19,7 @@ public class BillsController {
         this.usersService = usersService;
     };
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @GetMapping("/all")
     public List<Bills> getAll(){
         return billsService.getBills();
@@ -30,7 +30,7 @@ public class BillsController {
         return billsService.getBillsByUserId(userId);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @PostMapping("/save/{userId}")
     public List<Bills> saveBill(@PathVariable Long userId, @RequestBody Bills bill){
         Users user = usersService.getUserById(userId);
