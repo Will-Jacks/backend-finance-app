@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/conta")
 public class ContaController {
@@ -23,6 +25,11 @@ public class ContaController {
         return repository.findById(id)
                 .map (conta -> ResponseEntity.ok(conta))
                 .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/all")
+    public List<?> getAllBills() {
+        return repository.findAll();
     }
 
     @PostMapping("/save")
