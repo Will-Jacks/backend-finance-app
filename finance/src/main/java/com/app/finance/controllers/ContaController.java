@@ -42,4 +42,10 @@ public class ContaController {
         }
         return "Salvo com sucesso";
     }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteConta(@PathVariable Long id) {
+        repository.deleteById(id);
+        return "Deletado com sucesso!";
+    }
 }
