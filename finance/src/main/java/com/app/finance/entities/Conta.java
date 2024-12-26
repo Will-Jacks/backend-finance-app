@@ -23,6 +23,7 @@ public class Conta {
     private String banco;
     private String comprador;
     private String categoria;
+    private Boolean isPaid;
 }
 
 
