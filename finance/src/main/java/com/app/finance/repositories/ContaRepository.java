@@ -6,11 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContaRepository extends JpaRepository<Conta, Long> {
     @Query("SELECT c FROM Conta c WHERE c.comprador LIKE %:comprador%")
     List<Conta> findByComprador(@Param("comprador") String comprador);
-
-
-
 }

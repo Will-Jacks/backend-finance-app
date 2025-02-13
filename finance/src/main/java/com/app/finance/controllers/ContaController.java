@@ -2,13 +2,16 @@ package com.app.finance.controllers;
 
 import com.app.finance.entities.Conta;
 import com.app.finance.repositories.ContaRepository;
+import jakarta.persistence.Id;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -61,10 +64,18 @@ public class ContaController {
         return "Salvo com sucesso";
     }
 
-    @PutMapping("/setIsPaid")
-    public String setIsPaid() {
+    @PutMapping("/setIsPaid/{id}")
+    public ResponseEntity<String> setIsPaid(@PathVariable Long id, @RequestBody Conta conta) {
+        Optional<Conta> updateConta = repository.findById(id);
 
-        return "Atualizado com sucesso";
+        if (updateConta.isPresent()) {
+            Conta existingConta = updateConta.get();
+            existingConta.setIsPaid(conta.getIsPaid());
+            repository.save(existingConta);
+
+            return ResponseEntity.ok("Conta atualizada com sucesso");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conta não encontrada");
     }
 
 
