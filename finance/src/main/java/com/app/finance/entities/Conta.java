@@ -19,20 +19,11 @@ public class Conta {
     private Long id;
     private String titulo;
     private float valor;
-    private String descricao;
-    private String estabelecimento;
-    private String formaDePagamento;
     private String banco;
     private String comprador;
     private String categoria;
     private String data;
     private String hora;
-    private Boolean isPaid;
-
-
-    public void updateIsPaid(Boolean param) {
-        setIsPaid(param);
-    }
 }
 
 

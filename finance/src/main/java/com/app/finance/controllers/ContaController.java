@@ -64,20 +64,6 @@ public class ContaController {
         return "Salvo com sucesso";
     }
 
-    @PutMapping("/setIsPaid/{id}")
-    public ResponseEntity<String> setIsPaid(@PathVariable Long id, @RequestBody Conta conta) {
-        Optional<Conta> updateConta = repository.findById(id);
-
-        if (updateConta.isPresent()) {
-            Conta existingConta = updateConta.get();
-            existingConta.setIsPaid(conta.getIsPaid());
-            repository.save(existingConta);
-
-            return ResponseEntity.ok("Conta atualizada com sucesso");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conta não encontrada");
-    }
-
 
     @DeleteMapping("/delete/{id}")
     public String deleteConta(@PathVariable Long id) {
