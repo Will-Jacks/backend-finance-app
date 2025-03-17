@@ -2,21 +2,19 @@ package com.app.finance.controllers;
 
 import com.app.finance.entities.Conta;
 import com.app.finance.repositories.ContaRepository;
-import jakarta.persistence.Id;
-import org.apache.coyote.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/conta")
 public class ContaController {
+
     @Autowired
     private ContaRepository repository;
 
@@ -51,6 +49,16 @@ public class ContaController {
         return contas.stream()
                 .limit(4)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/banco")
+    public List<Conta> getContasPorBanco(@RequestParam String banco) {
+        return repository.findByBanco(banco);
+    }
+
+    @GetMapping("/filter")
+    public List<Conta> getContasPorBancoEComprador(@RequestParam String comprador, @RequestParam String banco) {
+        return repository.findByCompradorAndBanco(comprador, banco);
     }
 
     @PostMapping("/save")
