@@ -1,5 +1,6 @@
 package com.app.finance.controllers;
 
+import com.app.finance.dto.CompradorEBancoTotalDTO;
 import com.app.finance.entities.Conta;
 import com.app.finance.repositories.ContaRepository;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -61,6 +63,12 @@ public class ContaController {
         return repository.findByCompradorAndBanco(comprador, banco);
     }
 
+    @GetMapping("/getallbanks")
+    public List<CompradorEBancoTotalDTO> getSomaTotalPorCompradorEBanco() {
+        return repository.getSomaTotalPorCompradorEBanco();
+    }
+
+
     @PostMapping("/save")
     public String postConta(@RequestBody Conta conta) {
         try {
@@ -72,6 +80,21 @@ public class ContaController {
         return "Salvo com sucesso";
     }
 
+    @PutMapping("/update")
+    public String putConta(@RequestBody Conta conta) {
+        try {
+            Optional<Conta> existing = repository.findById(conta.getId());
+
+            if (existing.isPresent()) {
+                repository.save(conta);
+                return "Conta atualizada com sucesso!";
+            } else {
+                return "Conta não encontrada.";
+            }
+        } catch (Exception e) {
+            return "Erro ao atualizar a conta.";
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public String deleteConta(@PathVariable Long id) {

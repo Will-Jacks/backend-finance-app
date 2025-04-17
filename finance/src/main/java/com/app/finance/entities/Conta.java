@@ -1,17 +1,11 @@
 package com.app.finance.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import java.util.Date;
-@Getter
-@Setter
+
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "conta")
 public class Conta {
     @Id
@@ -24,6 +18,37 @@ public class Conta {
     private String categoria;
     private String data;
     private String hora;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public String getBanco() {
+        return banco;
+    }
+    public String getComprador(){
+        return comprador;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
 }
 
 
