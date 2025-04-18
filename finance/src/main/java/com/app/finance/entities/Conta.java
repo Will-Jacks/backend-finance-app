@@ -16,6 +16,7 @@ public class Conta {
     private String banco;
     private String comprador;
     private String categoria;
+    private Boolean isPaid = false;
     private String data;
     private String hora;
 
@@ -48,6 +49,15 @@ public class Conta {
 
     public String getHora() {
         return hora;
+    }
+
+
+    public Boolean getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(Boolean paid) {
+        isPaid = paid;
     }
 }
 

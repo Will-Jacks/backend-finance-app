@@ -96,6 +96,25 @@ public class ContaController {
         }
     }
 
+    @PutMapping("/isPaid")
+    public String setIsPaid(@RequestBody Conta conta) {
+        try{
+            Optional<Conta> existing = repository.findById(conta.getId());
+
+            if(existing.isPresent()) {
+                Conta existingConta = existing.get();
+                existingConta.setIsPaid(conta.getIsPaid());
+                repository.save(existingConta);
+                return "Conta atualizada com sucesso!";
+            }else {
+                return "Conta não encontrada";
+            }
+        }catch (Exception e) {
+            return "Erro ao atualizar conta";
+        }
+
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteConta(@PathVariable Long id) {
         repository.deleteById(id);
