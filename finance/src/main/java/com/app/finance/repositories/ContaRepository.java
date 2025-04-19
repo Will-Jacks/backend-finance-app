@@ -20,7 +20,9 @@ public interface ContaRepository extends JpaRepository<Conta, Long> {
 
 
     @Query("SELECT new com.app.finance.dto.CompradorEBancoTotalDTO(c.comprador, c.banco, SUM(c.valor)) " +
-            "FROM Conta c GROUP BY c.comprador, c.banco")
+            "FROM Conta c WHERE c.isPaid = false GROUP BY c.comprador, c.banco")
     List<CompradorEBancoTotalDTO> getSomaTotalPorCompradorEBanco();
+
+    List<Conta> findByIsPaidTrue(); // Spring Data JPA entende isso automaticamente
 
 }

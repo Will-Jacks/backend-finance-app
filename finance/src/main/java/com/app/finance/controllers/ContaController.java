@@ -68,6 +68,11 @@ public class ContaController {
         return repository.getSomaTotalPorCompradorEBanco();
     }
 
+    @GetMapping("/get/paids")
+    public List<Conta> getAllPaids() {
+        return repository.findByIsPaidTrue();
+    }
+
 
     @PostMapping("/save")
     public String postConta(@RequestBody Conta conta) {
