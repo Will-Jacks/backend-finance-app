@@ -1,8 +1,11 @@
 package com.app.finance.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,7 +20,9 @@ public class Conta {
     private String comprador;
     private String categoria;
     private Boolean isPaid = false;
-    private String data;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
     private String hora;
 
     public Long getId() {
@@ -43,7 +48,7 @@ public class Conta {
         return categoria;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 

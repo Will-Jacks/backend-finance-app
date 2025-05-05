@@ -5,9 +5,11 @@ import com.app.finance.entities.Conta;
 import com.app.finance.repositories.ContaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -73,6 +75,20 @@ public class ContaController {
         return repository.findByIsPaidTrue();
     }
 
+    @GetMapping("/get/somatotal/periodo")
+    public List<CompradorEBancoTotalDTO> getSomaTotalPorPeriodo(
+            @RequestParam("inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam("fim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+        return repository.getSomaTotalPorCompradorEBancoNoPeriodo(inicio, fim);
+    }
+
+    @GetMapping("/get/home/periodo")
+    public List<Conta> getContasFromPeriodo(
+            @RequestParam("inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam("fim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
+    ) {
+        return repository.findAllByDataBetween(inicio, fim);
+    }
 
     @PostMapping("/save")
     public String postConta(@RequestBody Conta conta) {
