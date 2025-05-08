@@ -72,6 +72,9 @@ public class ContaController {
     @PostMapping("/save")
     public String postConta(@RequestBody Conta conta) {
         try {
+            if(conta.getData() == null) {
+                conta.setData(LocalDate.now());
+            }
         repository.save(conta);
         }catch (Exception e) {
             System.out.println(e.getMessage());
@@ -103,7 +106,7 @@ public class ContaController {
 
             if(existing.isPresent()) {
                 Conta existingConta = existing.get();
-                existingConta.setIsPaid(conta.getIsPaid());
+                existingConta.setIsPaid(conta.isPaid());
                 repository.save(existingConta);
                 return "Conta atualizada com sucesso!";
             }else {
