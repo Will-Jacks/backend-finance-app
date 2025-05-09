@@ -31,21 +31,14 @@ public class ContaController {
     }
 
     @GetMapping("/parcial-bills")
-    public List<Conta> lastFourBillsOfCurrentMonth() {
-        LocalDate startOfMonth = DateUtils.getStartOfCurrentMonth();
-        LocalDate endOfMonth = DateUtils.getEndOfCurrentMonth();
-        List<Conta> contas = repository.findAllByDataBetween(startOfMonth, endOfMonth);
+    public List<Conta> lastFourBills() {
+        List<Conta> contas = repository.findAll();
 
         contas.sort(Comparator.comparing(Conta::getId).reversed());
 
         return contas.stream()
                 .limit(4)
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping("/summary")
-    public List<CompradorEBancoTotalDTO> listGroupedTotals() {
-        return repository.getSomaTotalPorCompradorEBanco();
     }
 
     @GetMapping("/paids")
@@ -148,5 +141,10 @@ public class ContaController {
         return repository.findById(id)
                 .map (conta -> ResponseEntity.ok(conta))
                 .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/summary")
+    public List<CompradorEBancoTotalDTO> listGroupedTotals() {
+        return repository.getSomaTotalPorCompradorEBanco();
     }
  */
