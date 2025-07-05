@@ -7,7 +7,6 @@ import com.app.finance.repositories.ContaRepository;
 import com.app.finance.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -58,7 +57,7 @@ public class ContaController {
             @RequestParam("inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
             @RequestParam("fim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
     ) {
-        return repository.findAllByDataBetween(inicio, fim);
+        return repository.findAllByDataBetweenOrderByDataAsc(inicio, fim);
     }
 
 
@@ -68,7 +67,15 @@ public class ContaController {
             if(conta.getData() == null) {
                 conta.setData(LocalDate.now());
             }
-        repository.save(conta);
+            if(conta.getParcelas() == 0) {
+                repository.save(conta);
+            }
+            for (int i =0; i<conta.getParcelas(); i++){
+                Conta novaConta = new Conta(conta);
+                novaConta.setTitulo(novaConta.getTitulo() + " " + (i+1) + "/" + conta.getParcelas());
+                novaConta.setData(conta.getData().plusMonths(i+1));
+                repository.save(novaConta);
+            }
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return "Erro ao salvar";
@@ -117,34 +124,3 @@ public class ContaController {
         return "Deletado com sucesso!";
     }
 }
-
-
-
-/* Decidi fazer uma refatoração, portanto vou deixar os Controllers que não estão sendo utilizados no momento em comentário, para que eu possa testar se as funcionalidades da aplicação irão se manter. Caso não se mantenham, eu volto a utlizar os controllers comentados
-
-@GetMapping("/comprador")
-    public List<Conta> getContasPorComprador(@RequestParam String comprador) {
-        return repository.findByComprador(comprador);
-    }
-
-    @GetMapping("/banco")
-    public List<Conta> getContasPorBanco(@RequestParam String banco) {
-        return repository.findByBanco(banco);
-    }
-
-    @GetMapping("/filter")
-    public List<Conta> getContasPorBancoEComprador(@RequestParam String comprador, @RequestParam String banco) {
-        return repository.findByCompradorAndBanco(comprador, banco);
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Conta> getContaById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map (conta -> ResponseEntity.ok(conta))
-                .orElseGet(()-> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/summary")
-    public List<CompradorEBancoTotalDTO> listGroupedTotals() {
-        return repository.getSomaTotalPorCompradorEBanco();
-    }
- */

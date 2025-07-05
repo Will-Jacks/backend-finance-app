@@ -32,4 +32,6 @@ public interface ContaRepository extends JpaRepository<Conta, Long> {
     List<CompradorEBancoTotalDTO> getSomaTotalPorCompradorEBancoNoPeriodo(@Param("inicio") LocalDate inicio, @Param("fim") LocalDate fim);
 
     List<Conta> findAllByDataBetween(LocalDate inicio, LocalDate fim);
+
+    List<Conta> findAllByDataBetweenOrderByDataAsc(LocalDate inicio, LocalDate fim);
 }

@@ -16,6 +16,7 @@ public class Conta {
     private Long id;
     private String titulo;
     private float valor;
+    private int parcelas;
     private String banco;
     private String comprador;
     private String categoria;
@@ -24,6 +25,22 @@ public class Conta {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
     private String hora;
+
+    public Conta() {
+    }
+
+    public Conta(Conta conta) {
+        this.id = conta.id;
+        this.titulo = conta.titulo;
+        this.valor = conta.valor;
+        this.parcelas = conta.parcelas;
+        this.banco = conta.banco;
+        this.comprador = conta.comprador;
+        this.categoria = conta.categoria;
+        this.isPaid = conta.isPaid;
+        this.data = conta.data;
+        this.hora = conta.hora;
+    }
 
     public Long getId() {
         return id;
@@ -37,10 +54,15 @@ public class Conta {
         return valor;
     }
 
+    public int getParcelas() {
+        return parcelas;
+    }
+
     public String getBanco() {
         return banco;
     }
-    public String getComprador(){
+
+    public String getComprador() {
         return comprador;
     }
 
@@ -68,6 +90,26 @@ public class Conta {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 }
+//    @Override
+//    public String toString() {
+//        return "Conta{" +
+//                "id=" + id +
+//                ", titulo='" + titulo + '\'' +
+//                ", valor=" + valor +
+//                ", parcelas=" + parcelas +
+//                ", banco='" + banco + '\'' +
+//                ", comprador='" + comprador + '\'' +
+//                ", categoria='" + categoria + '\'' +
+//                ", isPaid=" + isPaid +
+//                ", data=" + data +
+//                ", hora=" + hora +
+//                '}';
+//    }
+
 
 
